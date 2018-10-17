@@ -8,6 +8,9 @@ import json
 from sys import exc_info 
 import traceback
 import sys
+import os
+
+from core import G
 
 class SocketMeshOps():
 
@@ -35,13 +38,13 @@ class SocketMeshOps():
                 self.parent.addMessage("Did not understand '" + function + "'")
                 jsoncall.setError('"' + function + '" is not valid command')
         except:
-            print "Exception in JSON:"
-            print '-'*60
+            print("Exception in JSON:")
+            print('-'*60)
             traceback.print_exc(file=sys.stdout)
-            print '-'*60
+            print('-'*60)
             ex = exc_info()
             jsoncall.setError("runtime exception:  " + str(ex[1]))
-            print ex
+            print(ex)
 
         return jsoncall
 
@@ -49,7 +52,18 @@ class SocketMeshOps():
         jsonCall.data = self.human.mesh.coord
 
     def getPose(self,conn,jsonCall):
+
+        mhapi = G.app.mhapi
+
+        poseFilename = jsonCall.params.get("poseFilename") # use get, since might not be there
         
+        if poseFilename is not None:
+            filename, file_extension = os.path.splitext(poseFilename)
+            if file_extension == ".mhpose":
+                mhapi.skeleton.setExpressionFromFile(poseFilename)
+            if file_extension == ".bvh":
+                mhapi.skeleton.setPoseFromFile(poseFilename)
+
         self.parent.addMessage("Constructing dict with bone matrices.")
         
         skeleton = self.human.getSkeleton()
@@ -61,7 +75,7 @@ class SocketMeshOps():
             rmat = bone.getRestMatrix('zUpFaceNegY')
             skelobj[bone.name] = [ list(rmat[0,:]), list(rmat[1,:]), list(rmat[2,:]), list(rmat[3,:]) ]
 
-        print skelobj
+        print(skelobj)
 
         jsonCall.data = skelobj
 
