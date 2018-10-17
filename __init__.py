@@ -28,7 +28,7 @@ import gui
 import log
 import socket
 import json
-import zmq
+#import zmq
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
