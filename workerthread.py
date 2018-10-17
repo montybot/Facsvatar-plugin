@@ -25,27 +25,65 @@ does not make much sense without a corresponding client.
 import gui3d
 import mh
 import gui
-import log
 import socket
 import json
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from core import G
 
-from dirops import SocketDirOps
-from meshops import SocketMeshOps
-from modops import SocketModifierOps
+mhapi = gui3d.app.mhapi
+
+qtSignal = None
+qtSlot = None
+
+if mhapi.utility.isPython3():
+    from PyQt5 import QtGui
+    from PyQt5 import QtCore
+    from PyQt5.QtGui import *
+    from PyQt5 import QtWidgets
+    from PyQt5.QtWidgets import *
+    from PyQt5.QtCore import *
+    qtSignal = QtCore.pyqtSignal
+    qtSlot = QtCore.pyqtSlot
+else:
+    if mhapi.utility.isPySideAvailable():
+        from PySide import QtGui
+        from PySide import QtCore
+        from PySide.QtGui import *
+        from PySide.QtCore import *
+        qtSignal = QtCore.Signal
+        qtSlot = QtCore.Slot
+    else:
+        from PyQt4 import QtGui
+        from PyQt4 import QtCore
+        from PyQt4.QtGui import *
+        from PyQt4.QtCore import *
+        qtSignal = QtCore.pyqtSignal
+        qtSlot = QtCore.pyqtSlotmhapi = G.app.mhapi
+
+QThread = mhapi.ui.QtCore.QThread
+
+from .dirops import SocketDirOps
+from .meshops import SocketMeshOps
+from .modops import SocketModifierOps
+
+try:
+    unicode()
+except NameError:
+    unicode = str
 
 class WorkerThread(QThread):
+
+    signalAddMessage = qtSignal(str)
+    signalEvaluateCall = qtSignal()
 
     def __init__(self, parent = None):
         QThread.__init__(self, parent)
         self.exiting = False
-        #self.taskview = taskview
+        self.log = mhapi.utility.getLogChannel("socket")
 
     def addMessage(self,message,newLine = True):
-        self.emit(SIGNAL("addMessage(QString)"),QString(message))
-        print message
+        self.signalAddMessage.emit(message)
+        print(message)
         pass
 
     def run(self):
@@ -55,7 +93,7 @@ class WorkerThread(QThread):
         try:
             self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             self.socket.bind(('127.0.0.1', 12345))
-        except socket.error , msg:
+        except socket.error as msg:
             self.addMessage('Bind failed. Error Code : ' + str(msg[0]) + ' Message ' + msg[1] + "\n")
             return;
 
@@ -72,13 +110,13 @@ class WorkerThread(QThread):
                 if conn and not self.exiting:
                     self.addMessage("Connected with " + addr[0] + ":" + str(addr[1]))
                     data = conn.recv(8192)
-                    self.addMessage("Client says: '" + data + "'")
+                    self.addMessage("Client says: '" + unicode(data, encoding='utf-8') + "'")
                     data = gui3d.app.mhapi.internals.JsonCall(data)
     
                     self.jsonCall = data
                     self.currentConnection = conn
     
-                    self.emit(SIGNAL("evaluateCall()"))
+                    self.signalEvaluateCall.emit()
             except socket.error:
                 """Assume this is because we closed the socket from outside"""
                 pass
@@ -97,5 +135,6 @@ class WorkerThread(QThread):
 
     def __del__(self):        
         self.stopListening()
+
 
 
