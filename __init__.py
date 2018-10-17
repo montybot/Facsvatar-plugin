@@ -41,7 +41,7 @@ class SocketTaskView(gui3d.TaskView):
 
     def __init__(self, category):
         self.human = gui3d.app.selectedHuman
-        gui3d.TaskView.__init__(self, category, 'Socket')
+        gui3d.TaskView.__init__(self, category, 'FACSvatar')
 
         self.log = mhapi.utility.getLogChannel("socket")
 
