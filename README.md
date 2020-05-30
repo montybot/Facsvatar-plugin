@@ -50,6 +50,7 @@ https://github.com/NumesSanguis/FACSvatar
 
 ## To run all of these softwares together
 Start MakeHuman and if the plugin is correctly installed you have a new FACSvatar tab inside Modeling
+
 You can start and stop FACSvatar listener from here
 
 Start the bridge and FACSvatar module
