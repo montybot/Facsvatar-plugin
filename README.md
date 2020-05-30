@@ -33,7 +33,7 @@ pip install zmq
 Put FACSvatar __7_facsvatar.py__ inside the plugin directory
 
 Grab it from 
-https://github.com/montybot/8_facsvatar
+https://github.com/montybot/Facsvatar-plugin/
 
 Launch MakeHuman and activate it inside Settings/Plugins
 
