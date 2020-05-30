@@ -29,8 +29,8 @@ Install zeromq for python 3.x
 ```
 pip install zmq
 ```
-## FACAvatar plugin for MakeHuman
-Put FACSvatar __7_facsvatar.py__ inside the plugin directory
+## FACSvatar plugin for MakeHuman
+Put FACSvatar plugin __7_facsvatar.py__ inside the plugin directory
 
 Grab it from 
 https://github.com/montybot/Facsvatar-plugin/
@@ -48,6 +48,7 @@ change that lines inside config.xml in the the openface directory
 <Port>5570</Port>
 ```
 
+## FACSvatar bridge
 Download or clone FACSvatar from here
 https://github.com/NumesSanguis/FACSvatar
 
@@ -58,7 +59,7 @@ You can start and stop FACSvatar listener from here
 
 Start the bridge and FACSvatar module
 
-Launch main.py from
+Launch main.py from a console
 ```
 C:\...YOUR_LOCATION...\FACSvatar-master\modules\process_bridge
 ```
