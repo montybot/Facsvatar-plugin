@@ -16,6 +16,20 @@ http://www.makehumancommunity.org/wiki/Documentation:Running_MakeHuman_from_sour
 And follow the procedure to install FacsHuman from here, same as for the standalone version.
 https://github.com/montybot/FACSHuman
 
+## ZeroMq
+### For makehuman
+Install python 2.7 if needed
+
+Install zeromq for python 2.7
+```
+pip2 install zmq
+```
+### For FACSvatar
+Install zeromq for python 3.x
+```
+pip install zmq
+```
+## FACAvatar plugin for MakeHuman
 Put FACSvatar __7_facsvatar.py__ inside the plugin directory
 
 Grab it from 
@@ -25,19 +39,7 @@ Launch MakeHuman and activate it inside Settings/Plugins
 
 Close MakeHuman
 
-## For makehuman
-Install python 2.7 if needed
-
-Install zeromq for python 2.7
-```
-pip2 install zmq
-```
-## For FACSvatar
-Install zeromq for python 3.x
-```
-pip install zmq
-```
-
+## Open face ZMQ for facial movements recognition
 Download and unzip Openface_2.1.0_zeromq.zip from here :
 https://github.com/NumesSanguis/FACSvatar/releases
 change that lines inside config.xml in the the openface directory
@@ -50,7 +52,7 @@ Download or clone FACSvatar from here
 https://github.com/NumesSanguis/FACSvatar
 
 ## To run all of these softwares together
-Start MakeHuman and if the plugin is correctly installed you have a new FACSvatar tab inside Modeling
+Start MakeHuman and if the plugin and ZMQ for Python is correctly installed you have a new FACSvatar tab inside Modeling.
 
 You can start and stop FACSvatar listener from here
 
