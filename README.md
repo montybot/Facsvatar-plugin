@@ -1,6 +1,11 @@
 # Use FACSvatar with FACSHuman
 __DISCLAIMER__ 
+
 At this time the frame rate is very low on small configuration.
+
+The number of AUs recognised by OpenFace are limited and do not cover all the AUs handled by FACSHuman.
+
+Head movements are not supported at this time.
 
 ## How it works
 
