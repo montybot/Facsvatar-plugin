@@ -54,6 +54,7 @@ Start MakeHuman and if the plugin is correctly installed you have a new FACSvata
 You can start and stop FACSvatar listener from here
 
 Start the bridge and FACSvatar module
+
 Launch main.py from
 ```
 C:\...YOUR_LOCATION...\FACSvatar-master\modules\process_bridge
