@@ -16,7 +16,7 @@ http://www.makehumancommunity.org/wiki/Documentation:Running_MakeHuman_from_sour
 And follow the procedure to install FacsHuman from here, same as for the standalone version.
 https://github.com/montybot/FACSHuman
 
-Put FACSvatar __7_FACSHuman.py__ inside the plugin directory
+Put FACSvatar __7_facsvatar.py__ inside the plugin directory
 
 Grab it from 
 https://github.com/montybot/8_facsvatar
